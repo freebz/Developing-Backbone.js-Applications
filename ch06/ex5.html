@@ -1,0 +1,34 @@
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/backbone.js"></script>
+<script src="js/lib/handlebars.js"></script>
+<script src="js/lib/thorax.js"></script>
+<script type="text/javascript">
+    
+  var view = new Thorax.View({
+      model: new Thorax.Model({key: 'value'}),
+      template: Handlebars.compile('{{key}}')
+  });
+
+  view.render();
+  $('body').append(view.el);
+
+  var parent1 = new Thorax.View({
+      child: new Thorax.View({
+	  greeting: 'Hello',
+	  template: Handlebars.compile('{{greeting}} World!')
+      }),
+      template: Handlebars.compile('{{view child}}')
+  });
+
+  var ChildView = Thorax.View.extend({
+      name: 'child',
+      template: Handlebars.compile('{{key}}')
+  });
+
+  var parent2 = new Thorax.View({
+      child: new ChildView,
+      template: Handlebars.compile('{{view "child" key="value"}}')
+  });
+
+</script>
