@@ -1,0 +1,74 @@
+<div id="content" />
+
+<script type="text/html" id="my-view-template">
+  <div class="row">
+    <label>First Name:</label>
+    <span><%= firstName %></span>
+  </div>
+  <div class="row">
+    <label>Last Name:</label>
+    <span><%= lastName %></span>
+  </div>
+  <div class="row">
+    <label>Email:</label>
+    <span><%= email %></span>
+  </div>
+</script>
+
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/backbone.js"></script>
+<script src="js/lib/backbone.marionette.js"></script>
+
+<script type="text/javascript">
+
+//  var ZombieView = Backbone.View.extend({
+  var ZombieView = Marionette.ItemView.extend({
+      template: '#my-view-template',
+      
+      initialize: function() {
+	  //this.model.on('change', this.render, this);
+	  this.listenTo(this.model, 'change', this.render);
+      },
+
+/*
+      close: function() {
+	  this.stopListening();
+      },
+*/
+
+      render: function() {
+	  alert('We`re rendering the view');
+      }
+  });
+
+  var Person = Backbone.Model.extend({
+      defaults: {
+	  "firstName": "Jeremy",
+	  "lastName": "Ashknas",
+	  "email": "jeremy@example.com"
+      }
+  });
+
+  var Derick = new Person({
+      firstName: 'Derick',
+      lastName: 'Bailey',
+      email: 'derickbailey@example.com'
+  });
+
+  var zombieView = new ZombieView({
+      model: Derick
+  });
+
+//  zombieView.close();
+  
+  zombieView = new ZombieView({
+      model: Derick
+  });
+  
+
+  Derick.set('email', 'derickbailey@example.com');
+
+</script>
+
+
