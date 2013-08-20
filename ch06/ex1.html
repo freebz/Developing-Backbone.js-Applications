@@ -1,0 +1,53 @@
+<div id="content" />
+
+<script type="text/html" id="my-view-template">
+  <div class="row">
+    <label>First Name:</label>
+    <span><%= firstName %></span>
+  </div>
+  <div class="row">
+    <label>Last Name:</label>
+    <span><%= lastName %></span>
+  </div>
+  <div class="row">
+    <label>Email:</label>
+    <span><%= email %></span>
+  </div>
+</script>
+
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/backbone.js"></script>
+
+<script type="text/javascript">
+
+  var MyView = Backbone.View.extend({
+      template: $('#my-view-template').html(),
+
+      render: function() {
+	  var compiledTemplate = _.template(this.template);
+	  var data = this.model.toJSON();
+	  var html = compiledTemplate(data);
+	  this.$el.html(html);
+      }
+  });
+
+  var Person = Backbone.Model.extend();
+
+  var Derick = new Person({
+      firstName: 'Derick',
+      lastName: 'Bailey',
+      email: 'derickbailey@example.com'
+  });
+
+  var myView = new MyView({
+      model: Derick
+  })
+
+  myView.render();
+  
+  $('#content').html(myView.el)
+
+</script>
+
+
