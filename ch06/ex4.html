@@ -1,0 +1,83 @@
+<div id="content" />
+
+<script type="text/html" id="my-view-template">
+  <div class="row">
+    <label>First Name:</label>
+    <span><%= firstName %></span>
+  </div>
+  <div class="row">
+    <label>Last Name:</label>
+    <span><%= lastName %></span>
+  </div>
+  <div class="row">
+    <label>Email:</label>
+    <span><%= email %></span>
+  </div>
+</script>
+
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/backbone.js"></script>
+<script src="js/lib/backbone.marionette.js"></script>
+
+<script type="text/javascript">
+
+  /*
+  var MyView = Backbone.View.extend({
+      template: $('#my-view-template').html(),
+
+      render: function() {
+	  var compiledTemplate = _.template(this.template);
+	  var data = this.model.toJSON();
+	  var html = compiledTemplate(data);
+	  this.$el.html(html);
+      }
+  });
+  */
+
+  var MyView = Marionette.ItemView.extend({
+      template: '#my-view-template'
+  });
+ 
+  var Person = Backbone.Model.extend({
+      defaults: {
+	  "firstName": "Jeremy",
+	  "lastName": "Ashknas",
+	  "email": "jeremy@example.com"
+      }
+  });
+
+  var Joe = new Person({
+      firstName: 'Joe',
+      lastName: 'Bob',
+      email: 'joebob@example.com'
+  });
+
+
+/*
+  var myView = new MyView({
+      model: Joe
+  })
+
+  myView.render();
+  
+  $('#content').html(myView.el);
+*/
+
+  var myRegion = new Marionette.Region({
+      el: '#content'
+  });
+
+  var view1 = new MyView({
+      model: Joe
+  });
+  myRegion.show(view1);
+
+  var view2 = new MyView({
+      model: new Person
+  });
+  myRegion.show(view2);
+
+</script>
+
+
