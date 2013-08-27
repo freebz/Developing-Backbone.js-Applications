@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page Title</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet"
+	  href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js">
+    </script>
+  </head>
+  <body>
+    
+    <div data-role="page" id="firstpage">
+      
+      <div data-role="content">
+	<a href="#secondpage">go to secondpage</a>
+      </div>
+    </div>
+    <div data-role="page" id="secondpage">
+
+      <div data-role="content">
+	<a href="#firstdialog" data-rel="dialog" >open a page as a dialog</a>
+      </div>
+    </div>
+    <div data-role="dialog" id="firstdialog">
+
+      <div data-role="content">
+	<a href="#firstpage">leave dialog and go to first page</a>
+      </div>
+    </div>
+  </body>
+</html>
