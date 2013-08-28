@@ -9,3 +9,16 @@ test( 'Our first QUnit test - asserting results', function(){
     // equal( actualValue, expectedValue, message )
     equal( myString, 'Hello Backbone.js', 'Expected value: Hello Backbone.js!');
 });
+
+function reverseString( str ){
+    return str.split('').reverse().join('');
+}
+
+test( 'reverseString()', function() {
+    expect( 5 );
+    equal( reverseString('hello'), 'olleh', 'The value expected was olleh' );
+    equal( reverseString('foobar'), 'raboof', 'The value expected was raboof' );
+    equal( reverseString('world'), 'dlrow', 'The value expected wos dlrow' );
+    notEqual( reverseString('world'), 'dlroo', 'The value was expected to not be dlroo' );
+    equal( reverseString('bubble'), 'double', 'The value expected was elbbub' );
+});
