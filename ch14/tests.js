@@ -22,3 +22,16 @@ test( 'reverseString()', function() {
     notEqual( reverseString('world'), 'dlroo', 'The value was expected to not be dlroo' );
     equal( reverseString('bubble'), 'double', 'The value expected was elbbub' );
 });
+
+
+module( 'Module One' );
+test( 'first test', function() {} );
+test( 'another test', function() {} );
+
+module( 'Module Two' );
+test( 'second test', function() {} );
+test( 'andther test', function() {} );
+
+module( 'Module Three' );
+test( 'third test', function() {} );
+test( 'andther test', function() {} );
