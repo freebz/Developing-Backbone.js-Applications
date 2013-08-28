@@ -24,8 +24,19 @@ test( 'reverseString()', function() {
 });
 
 
-module( 'Module One' );
-test( 'first test', function() {} );
+module( 'Module One', {
+    setup: function() {
+	// run before
+    },
+    teardown: function() {
+	// run after
+    }
+});
+
+test( 'first test', function() {
+    // run the first test
+});
+
 test( 'another test', function() {} );
 
 module( 'Module Two' );
