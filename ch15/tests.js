@@ -45,4 +45,16 @@ test( 'Should call a subscriber with strict matching', function () {
     ok( spy.calledWithExactly( 'message', 'many' ) );
 });
 
-    
+test( 'Should call a subscriber and maintain call order', function () {
+    var a = sinon.spy();
+    var b = sinon.spy();
+
+    PubSub.subscribe( 'message', a );
+    PubSub.subscribe( 'event', b );
+
+    PubSub.publishSync( 'message', { id: 45 } );
+    PubSub.publishSync( 'event', [1, 2, 3] );
+
+    ok( a.calledBefore(b) );
+    ok( b.calledAfter(a) );
+});
