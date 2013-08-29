@@ -58,3 +58,20 @@ test( 'Should call a subscriber and maintain call order', function () {
     ok( a.calledBefore(b) );
     ok( b.calledAfter(a) );
 });
+
+test( 'Should call a subscriber and check call counts', function () {
+    var message = getUniqueString();
+    var spy = sinon.spy();
+
+    PubSub.subscribe( message, spy );
+    PubSub.publishSync( message, 'some payload' );
+
+    // Passes if spy was called once and only once.
+    ok( spy.calledOnce ); // calledTwice and calledThrice are also supported
+
+    // The number of recored calls.
+    equal( spy.callCount, 1 );
+
+    // Directly checking the arguments of the call
+    equal( spy.getCall(0).args[0], message );
+});
