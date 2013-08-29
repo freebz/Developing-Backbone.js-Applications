@@ -30,3 +30,19 @@ test( 'Should call a subscriber with standard matching', function () {
 
     ok( spy.calledWith( 'message', { id: 45 } ) );
 });
+
+test( 'Should call a subscriber with strict matching', function () {
+    var spy = sinon.spy();
+
+    PubSub.subscribe( 'message', spy );
+    PubSub.publishSync( 'message', 'many', 'arguments' );
+    PubSub.publishSync( 'message', 12, 34 );
+
+    // This passes
+    ok( spy.calledWith('message', 'many') );
+    
+    // This however, fails
+    ok( spy.calledWithExactly( 'message', 'many' ) );
+});
+
+    
