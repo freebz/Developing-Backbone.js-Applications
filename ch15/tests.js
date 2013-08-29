@@ -21,3 +21,12 @@ test( 'should inspect the jQuery.getJSON usage of jQuery.ajax', function () {
     equals( jQuery.ajax.getCall(0).args[0].url, '/todos/completed' );
     equals( jQuery.ajax.getCall(0).args[0].dataType, 'json' );
 });
+
+test( 'Should call a subscriber with standard matching', function () {
+    var spy = sinon.spy();
+
+    PubSub.subscribe( 'message', spy );
+    PubSub.publishSync( 'message', { id: 45 } );
+
+    ok( spy.calledWith( 'message', { id: 45 } ) );
+});
