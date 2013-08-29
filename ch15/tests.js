@@ -75,3 +75,46 @@ test( 'Should call a subscriber and check call counts', function () {
     // Directly checking the arguments of the call
     equal( spy.getCall(0).args[0], message );
 });
+
+var Todo = Backbone.Model.extend();
+
+var TodoList = Backbone.Collection.extend({
+    model: Todo
+});
+
+module( 'Should function when instantiated with model literals', {
+    
+    setup:function() {
+	
+	this.todoStub = sinon.stub(window, 'Todo');
+	this.model = new Backbone.Model({
+	    id: 2,
+	    title: 'Hello world'
+	});
+
+	this.todoStub.returns(this.model);
+	this.todos = new TodoList();
+
+	// Let's reset the relationship to use a stub
+	this.todos.model = Todo;
+
+	// add a model
+	this.todos.add({
+	    id: 2,
+	    title: 'Hello world'
+	});
+    },
+
+    teardown: function() {
+	this.todoStub.restore();
+    }
+
+});
+
+test('should add a model', function() {
+    equal( this.todos.length, 1);
+});
+
+test('should find a model by id', function() {
+    equal( this.todos.get(2).get('id'), 2 );
+});
