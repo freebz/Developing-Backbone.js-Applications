@@ -118,3 +118,21 @@ test('should add a model', function() {
 test('should find a model by id', function() {
     equal( this.todos.get(2).get('id'), 2 );
 });
+
+module('mock');
+
+test('should call all subscribers when exceptions', function () {
+    var myAPI = { clearTodo: function () {} };
+
+    var spy = sinon.spy();
+    var mock = sinon.mock( myAPI );
+//    mock.expects( 'clearTodo' ).once().throws();
+    mock.expects( 'clearTodo' ).once();
+
+    PubSub.subscribe( 'message', myAPI.clearTodo );
+    PubSub.subscribe( 'message', spy );
+    PubSub.publishSync( 'message', undefined );
+    
+    mock.verify();
+    ok( spy.calledOnce );
+});
